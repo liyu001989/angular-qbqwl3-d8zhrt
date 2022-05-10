@@ -1,0 +1,146 @@
+<mat-card>
+  <mat-card-content>
+    <h2 class="example-h2">Slider configuration</h2>
+
+    <section class="example-section">
+      <mat-form-field class="example-margin">
+        <mat-label>Value</mat-label>
+        <input matInput type="number" [(ngModel)]="value">
+      </mat-form-field>
+      <mat-form-field class="example-margin">
+        <mat-label>Min value</mat-label>
+        <input matInput type="number" [(ngModel)]="min">
+      </mat-form-field>
+      <mat-form-field class="example-margin">
+        <mat-label>Max value</mat-label>
+        <input matInput type="number" [(ngModel)]="max">
+      </mat-form-field>
+      <mat-form-field class="example-margin">
+        <mat-label>Step size</mat-label>
+        <input matInput type="number" [(ngModel)]="step">
+      </mat-form-field>
+    </section>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="showTicks">Show ticks</mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="autoTicks" *ngIf="showTicks">
+        Auto ticks
+      </mat-checkbox>
+      <mat-form-field class="example-margin" *ngIf="showTicks && !autoTicks">
+        <mat-label>Tick interval</mat-label>
+        <input matInput type="number" [(ngModel)]="tickInterval">
+      </mat-form-field>
+    </section>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="thumbLabel">Show thumb label</mat-checkbox>
+    </section>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="vertical">Vertical</mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="invert">Inverted</mat-checkbox>
+    </section>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</mat-checkbox>
+      <mat-form-field>
+        <mat-label>color</mat-label>
+        <mat-select [(ngModel)]="color">
+
+          <mat-option value="primary">
+            primary
+          </mat-option>
+
+          <mat-option value="accent">
+            accent
+          </mat-option>
+
+          <mat-option value="warn">
+            warn
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+    </section>
+
+  </mat-card-content>
+</mat-card>
+<hr>
+Created by <a href="javascript:void(0)">https://github.com/andreElrico</a>
+<hr>
+<mat-card class="example-result-card">
+  <mat-card-content>
+    <h2>Range Slider</h2>
+
+    <div style="display: flex; width: 100%">
+      <mat-range-slider [style.flex-grow]="vertical ? 0 : 1"
+          #rs1
+          class="example-margin"
+          [disabled]="disabled"
+          [invert]="invert"
+          [max]="max"
+          [min]="min"
+          [step]="step"
+          [color]="color"
+          [thumbLabel]="thumbLabel"
+          [tickInterval]="getSliderTickInterval()"
+          (input)="myValue = $event.value"
+          [(ngModel)]="value"
+          [vertical]="vertical">
+      </mat-range-slider>
+
+      <div [style.flex-direction]="invert ? 'column' : 'column-reverse'" style="display: flex; justify-content: space-between;" *ngIf="vertical">
+        <span>{{myValue?.min}}</span>
+        <span>{{myValue?.max}}</span>
+      </div>
+
+    </div>
+
+    <div [style.flex-direction]="invert ? 'row-reverse' : 'row'" style="display: flex; justify-content: space-between;" *ngIf="!vertical">
+      <span>{{myValue?.min}}</span>
+      <span>{{myValue?.max}}</span>
+    </div>
+
+    <p class="green">ngModel: {{ value | json }}</p>
+    <p class="green">(input): {{ myValue | json }}</p>
+    <p> internal formGroup of range-slider: {{rs1.formGroup.value | json}} </p>
+    <p> internal slider switched: {{rs1._switchCase | json}} </p>
+
+  </mat-card-content>
+</mat-card>
+
+<h3> TODOS </h3>
+<ul>
+  <li> the closest slider-handle to the click event should be activated </li>
+  <li> is there a way to keep the internal formgroup in correct order (min max)</li>
+</ul>
+
+
+
+<mat-card class="example-result-card">
+  <mat-card-content>
+    <h2>Material Slider</h2>
+
+    <mat-slider
+        class="example-margin"
+        [disabled]="disabled"
+        [invert]="invert"
+        [max]="max"
+        [min]="min"
+        [step]="step"
+        [color]="color"
+        [thumbLabel]="thumbLabel"
+        [tickInterval]="getSliderTickInterval()"
+        [(ngModel)]="value"
+        [vertical]="vertical">
+    </mat-slider>
+  </mat-card-content>
+</mat-card>
+
+<!--
+
+  (input)="myValue = $event.value"
+
+   Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
